@@ -8,6 +8,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'change-me-in-production')
 
 DEBUG = False
 
+CORS_ALLOWED_ORIGINS = [
+    'https://vue-ci-cd-demo.onrender.com/',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 # 🔐 Autorisation dynamique de l'hôte Render
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -23,11 +30,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'produits',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
