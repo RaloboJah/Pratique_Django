@@ -18,5 +18,5 @@ services:
           property: connectionString
 
 databases:
-  - name: monprojet-db
+  - name: pratique_db
     plan: free
