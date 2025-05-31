@@ -27,3 +27,17 @@ def supprimer_produit(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     produit.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def modifier_produit(request, id):
+    try:
+        produit = Produit.objects.get(id=id)
+    except Produit.DoesNotExist:
+        return Response({'erreur': 'Produit non trouvé.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = ProduitSerializer(produit, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
